@@ -1,0 +1,11 @@
+project: wgibbs15/bat-fuzz
+
+# Target name (should be unique within the project)
+target: bat-fuzz
+
+# List of commands used to test the target
+cmds:
+
+    # Command used to start the target, "@@" is the input file
+    # (when "@@" is omitted Mayhem defaults to stdin inputs)
+    - cmd: /bat_stdin_input
