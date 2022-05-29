@@ -1,4 +1,4 @@
-project: wgibbs15/bat-fuzz
+project: bat
 
 # Target name (should be unique within the project)
 target: bat-fuzz
