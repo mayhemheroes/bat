@@ -10,6 +10,7 @@ cargo-fuzz = true
 
 [dependencies]
 libfuzzer-sys = "0.4.0"
+arbitrary = { version = "1", features = ["derive"] }
 
 [dependencies.bat]
 path = ".."
