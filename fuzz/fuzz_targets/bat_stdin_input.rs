@@ -10,7 +10,6 @@ use arbitrary::Arbitrary;
 #[derive(Arbitrary, Debug)]
 struct TestInput<'a> {
     data: &'a [u8],
-    language: Option<&'a str>,
     term_width: Option<usize>,
     tab_width: Option<Option<usize>>,
     colored_output: Option<bool>,
@@ -48,7 +47,6 @@ fuzz_target!(|input: TestInput<'_>| {
     }
 
     apply!(
-        language,
         term_width,
         tab_width,
         colored_output,
