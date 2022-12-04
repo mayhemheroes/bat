@@ -22,14 +22,10 @@ struct TestInput<'a> {
     vcs_modification_markers: Option<bool>,
     show_nonprintable: Option<bool>,
     snip: Option<bool>,
-    // wrapping_mode: Option<WrappingMode>,
     use_italics: Option<bool>,
-    // paging_mode: Option<PagingMode>,
     pager: Option<&'a str>,
     highlight: Option<usize>,
     highlight_range: Option<(usize, usize)>
-    // theme: Option<impl AsRef<str>>,
-    // syntax_mapping: Option<SyntaxMapping<'a>>,
 }
 
 fuzz_target!(|input: TestInput<'_>| {
@@ -64,9 +60,7 @@ fuzz_target!(|input: TestInput<'_>| {
         vcs_modification_markers,
         show_nonprintable,
         snip,
-        // wrapping_mode,
         use_italics,
-        // paging_mode,
         pager,
         highlight
     );
