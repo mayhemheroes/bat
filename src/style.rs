@@ -3,6 +3,10 @@ use std::str::FromStr;
 
 use crate::error::*;
 
+#[cfg(feature = "fuzz")]
+use arbitrary::Arbitrary;
+
+#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[non_exhaustive]
 #[derive(Debug, Eq, PartialEq, Copy, Clone, Hash)]
 pub enum StyleComponent {
@@ -85,6 +89,7 @@ impl FromStr for StyleComponent {
     }
 }
 
+#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[derive(Debug, Clone, Default)]
 pub struct StyleComponents(pub HashSet<StyleComponent>);
 

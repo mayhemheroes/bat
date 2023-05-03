@@ -1,6 +1,9 @@
 use std::io::Read;
 use std::path::Path;
 
+#[cfg(feature = "fuzz")]
+use arbitrary::Arbitrary;
+
 use console::Term;
 
 use crate::{
@@ -18,6 +21,7 @@ use crate::{
 #[cfg(feature = "paging")]
 use crate::paging::PagingMode;
 
+#[cfg_attr(feature = "fuzz", derive(Arbitrary), derive(Debug))]
 #[derive(Default)]
 struct ActiveStyleComponents {
     header_filename: bool,
@@ -29,15 +33,18 @@ struct ActiveStyleComponents {
     snip: bool,
 }
 
+#[cfg_attr(feature = "fuzz", derive(Arbitrary), derive(Debug))]
 #[non_exhaustive]
 pub struct Syntax {
     pub name: String,
     pub file_extensions: Vec<String>,
 }
 
+#[cfg_attr(feature = "fuzz", derive(Arbitrary), derive(Debug))]
 pub struct PrettyPrinter<'a> {
     inputs: Vec<Input<'a>>,
-    config: Config<'a>,
+    pub config: Config<'a>,
+    #[cfg_attr(feature = "fuzz", arbitrary(value = HighlightingAssets::from_binary()))]
     assets: HighlightingAssets,
 
     highlighted_lines: Vec<LineRange>,
@@ -342,6 +349,7 @@ impl Default for PrettyPrinter<'_> {
     }
 }
 
+#[cfg_attr(feature = "fuzz", derive(Arbitrary), derive(Debug))]
 /// An input source for the pretty printer.
 pub struct Input<'a> {
     input: input::Input<'a>,
