@@ -9,8 +9,12 @@ use content_inspector::{self, ContentType};
 
 use crate::error::*;
 
+#[cfg(feature = "fuzz")]
+use arbitrary::{Arbitrary, Unstructured, Result as ArbitraryResult};
+
 /// A description of an Input source.
 /// This tells bat how to refer to the input.
+#[cfg_attr(feature = "fuzz", derive(Arbitrary), derive(Debug))]
 #[derive(Clone)]
 pub struct InputDescription {
     pub(crate) name: String,
@@ -75,6 +79,13 @@ pub(crate) enum InputKind<'a> {
     CustomReader(Box<dyn Read + 'a>),
 }
 
+#[cfg(feature = "fuzz")]
+impl<'a> std::fmt::Debug for InputKind<'a> {
+    fn fmt(&self, _f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        Ok(())
+    }
+}
+
 impl<'a> InputKind<'a> {
     pub fn description(&self) -> InputDescription {
         match self {
@@ -85,14 +96,24 @@ impl<'a> InputKind<'a> {
     }
 }
 
+#[cfg_attr(feature = "fuzz", derive(Arbitrary), derive(Debug))]
 #[derive(Clone, Default)]
 pub(crate) struct InputMetadata {
     pub(crate) user_provided_name: Option<PathBuf>,
     pub(crate) size: Option<u64>,
 }
 
+#[cfg(feature = "fuzz")]
+fn fuzz_generate_input_kind<'a>(u: &mut Unstructured<'a>) -> ArbitraryResult<InputKind<'a>> {
+    let arr = u.arbitrary::<&[u8]>()?;
+    Ok(InputKind::CustomReader(Box::new(arr)))
+}
+
+#[cfg_attr(feature = "fuzz", derive(Arbitrary), derive(Debug))]
 pub struct Input<'a> {
+    #[cfg_attr(feature = "fuzz", arbitrary(with = fuzz_generate_input_kind))]
     pub(crate) kind: InputKind<'a>,
+
     pub(crate) metadata: InputMetadata,
     pub(crate) description: InputDescription,
 }

@@ -1,5 +1,9 @@
 use crate::error::*;
 
+#[cfg(feature = "fuzz")]
+use arbitrary::Arbitrary;
+
+#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[derive(Debug, Clone)]
 pub struct LineRange {
     lower: usize,
@@ -180,6 +184,7 @@ pub enum RangeCheckResult {
     AfterLastRange,
 }
 
+#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[derive(Debug, Clone)]
 pub struct LineRanges {
     ranges: Vec<LineRange>,
@@ -224,6 +229,7 @@ impl Default for LineRanges {
     }
 }
 
+#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[derive(Debug, Clone)]
 pub struct HighlightedLineRanges(pub LineRanges);
 

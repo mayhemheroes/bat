@@ -14,6 +14,7 @@ arbitrary = { version = "1", features = ["derive"] }
 
 [dependencies.bat]
 path = ".."
+features = ["application", "fuzz"]
 
 # Prevent this from interfering with workspaces
 [workspace]
