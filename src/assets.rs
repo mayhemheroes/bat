@@ -19,9 +19,6 @@ use lazy_theme_set::LazyThemeSet;
 
 use serialized_syntax_set::*;
 
-#[cfg(feature = "fuzz")]
-use arbitrary::Arbitrary;
-
 #[cfg(feature = "build-assets")]
 pub use crate::assets::build_assets::*;
 

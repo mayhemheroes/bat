@@ -6,10 +6,6 @@ use crate::style::StyleComponents;
 use crate::syntax_mapping::SyntaxMapping;
 use crate::wrapping::WrappingMode;
 
-#[cfg(feature = "fuzz")]
-use arbitrary::Arbitrary;
-
-#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[derive(Debug, Clone)]
 pub enum VisibleLines {
     /// Show all lines which are included in the line ranges
@@ -36,11 +32,9 @@ impl Default for VisibleLines {
     }
 }
 
-#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[derive(Debug, Clone, Default)]
 pub struct Config<'a> {
     /// The explicitly configured language, if any
-    #[cfg_attr(feature = "fuzz", arbitrary(value = None))]
     pub language: Option<&'a str>,
 
     /// Whether or not to show/replace non-printable characters like space, tab and newline.
@@ -72,7 +66,6 @@ pub struct Config<'a> {
     pub wrapping_mode: WrappingMode,
 
     /// Pager or STDOUT
-    #[cfg_attr(feature = "fuzz", arbitrary(value = PagingMode::Never))]
     #[cfg(feature = "paging")]
     pub paging_mode: PagingMode,
 
@@ -83,11 +76,9 @@ pub struct Config<'a> {
     pub theme: String,
 
     /// File extension/name mappings
-    #[cfg_attr(feature = "fuzz", arbitrary(value = SyntaxMapping::builtin()))]
     pub syntax_mapping: SyntaxMapping<'a>,
 
     /// Command to start the pager
-    #[cfg_attr(feature = "fuzz", arbitrary(value = None))]
     pub pager: Option<&'a str>,
 
     /// Whether or not to use ANSI italics

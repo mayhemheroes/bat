@@ -4,10 +4,6 @@ use std::path::Path;
 
 use crate::error::*;
 
-#[cfg(feature = "fuzz")]
-use arbitrary::Arbitrary;
-
-#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[derive(Debug, Clone)]
 pub struct IgnoredSuffixes<'a> {
     values: Vec<&'a str>,
