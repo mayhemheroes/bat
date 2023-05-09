@@ -5,12 +5,8 @@ use ignored_suffixes::IgnoredSuffixes;
 
 use globset::{Candidate, GlobBuilder, GlobMatcher};
 
-#[cfg(feature = "fuzz")]
-use arbitrary::Arbitrary;
-
 pub mod ignored_suffixes;
 
-#[cfg_attr(feature = "fuzz", derive(Arbitrary))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[non_exhaustive]
 pub enum MappingTarget<'a> {

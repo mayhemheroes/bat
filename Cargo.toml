@@ -40,8 +40,6 @@ build-assets = ["syntect/yaml-load", "syntect/plist-load", "regex", "walkdir"]
 regex-onig = ["syntect/regex-onig"] # Use the "oniguruma" regex engine
 regex-fancy = ["syntect/regex-fancy"] # Use the rust-only "fancy-regex" engine
 
-fuzz = ["dep:arbitrary"]
-
 [dependencies]
 is-terminal = { version = "0.4.4", optional = true }
 nu-ansi-term = "0.47.0"
@@ -68,7 +66,6 @@ grep-cli = { version = "0.1.7", optional = true }
 regex = { version = "1.8.1", optional = true }
 walkdir = { version = "2.3", optional = true }
 bytesize = { version = "1.2.0" }
-arbitrary = { version = "1", features = ["derive"], optional = true }
 
 [dependencies.git2]
 version = "0.16"
