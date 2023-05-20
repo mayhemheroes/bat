@@ -17,3 +17,4 @@ RUN cd fuzz && ${HOME}/.cargo/bin/cargo fuzz build
 FROM ubuntu:20.04
 
 COPY --from=builder /bat/fuzz/target/x86_64-unknown-linux-gnu/release/bat_stdin_input /
+COPY --from=builder /bat/fuzz/target/x86_64-unknown-linux-gnu/release/bat_stdin_input_random_options /
