@@ -1,9 +1,9 @@
 #![no_main]
 
-use libfuzzer_sys::fuzz_target;
 /// A small demonstration of the Input API.
 /// This prints embedded bytes with a custom header and then reads from STDIN.
 use bat::{Input, PrettyPrinter};
+use libfuzzer_sys::fuzz_target;
 
 use arbitrary::Arbitrary;
 
@@ -24,15 +24,13 @@ struct TestInput<'a> {
     use_italics: Option<bool>,
     pager: Option<&'a str>,
     highlight: Option<usize>,
-    highlight_range: Option<(usize, usize)>
+    highlight_range: Option<(usize, usize)>,
 }
 
 fuzz_target!(|input: TestInput<'_>| {
     // code to fuzz goes here
     let mut printer = PrettyPrinter::new();
-    printer.inputs(vec![
-        Input::from_bytes(input.data)
-    ]);
+    printer.inputs(vec![Input::from_bytes(input.data)]);
 
     macro_rules! apply {
         ($x:ident) => {{
@@ -67,8 +65,5 @@ fuzz_target!(|input: TestInput<'_>| {
         printer.highlight_range(from, to);
     }
 
-    printer
-        .print()
-        .unwrap();
+    printer.print().unwrap();
 });
-
