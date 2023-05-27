@@ -9,7 +9,3 @@ cmds:
     # Command used to start the target, "@@" is the input file
     # (when "@@" is omitted Mayhem defaults to stdin inputs)
     - cmd: /bat_stdin_input
-
-    # Command used to start the target, "@@" is the input file
-    # (when "@@" is omitted Mayhem defaults to stdin inputs)
-    - cmd: /bat_stdin_input_random_options
