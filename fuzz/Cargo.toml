@@ -24,9 +24,3 @@ name = "bat_stdin_input"
 path = "fuzz_targets/bat_stdin_input.rs"
 test = false
 doc = false
-
-[[bin]]
-name = "bat_stdin_input_random_options"
-path = "fuzz_targets/bat_stdin_input_random_options.rs"
-test = false
-doc = false
