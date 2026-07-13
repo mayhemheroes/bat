@@ -1,0 +1,32 @@
+# Additive cargo-fuzz crate (everything under mayhem/, upstream untouched). It
+# depends on bat as a library via path and drives its PrettyPrinter API in-process
+# — the same code path as the fork's original `bat_stdin_input` harness. The
+# Mayhem target keeps the legacy name `bat-fuzz` (run-history parity).
+[package]
+name = "bat-mayhem-fuzz"
+version = "0.0.0"
+authors = ["Automatically generated"]
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+arbitrary = { version = "1", features = ["derive"] }
+
+[dependencies.bat]
+path = "../.."
+default-features = false
+features = ["regex-onig", "paging", "git"]
+
+# Prevent this crate from interfering with the upstream workspace.
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "bat-fuzz"
+path = "fuzz_targets/bat_stdin_input.rs"
+test = false
+doc = false

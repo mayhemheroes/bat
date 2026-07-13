@@ -1,0 +1,10 @@
+# Preserves the legacy `bat-fuzz` Mayhem target name (run-history parity). The
+# binary is an in-process libFuzzer+ASan harness (mayhem/fuzz/) over bat's own
+# PrettyPrinter library API — the same code path as the fork's original
+# `bat_stdin_input` harness.
+project: bat
+target: bat-fuzz
+
+cmds:
+  - cmd: /mayhem/bat-fuzz
+    libfuzzer: true
